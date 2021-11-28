@@ -1,6 +1,6 @@
 import { ethers, network } from "hardhat";
-import lotteryABI from "../abi/PancakeSwapLottery.json";
-import config from "../config";
+import lotteryABI from "../abi/WagyuSwapLottery.json";
+import config from "../config.json";
 import logger from "../utils/logger";
 
 /**
@@ -38,7 +38,7 @@ const main = async () => {
       // Create, sign and broadcast transaction.
       const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId, true, {
         from: operator.address,
-        gasLimit: 500000,
+        gasLimit: 900000,
         gasPrice: _gasPrice.mul(2),
       });
 
@@ -47,7 +47,7 @@ const main = async () => {
       } signer=${operator.address}`;
       console.log(message);
       logger.info({ message });
-    } catch (error) {
+    } catch (error: any) {
       const message = `[${new Date().toISOString()}] network=${networkName} message='${error.message}' signer=${
         operator.address
       }`;

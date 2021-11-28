@@ -1,6 +1,10 @@
 import type { HardhatUserConfig } from "hardhat/types";
 import { task } from "hardhat/config";
 import "@nomiclabs/hardhat-ethers";
+import { resolve } from "path";
+import { config as dotenvConfig } from "dotenv";
+
+dotenvConfig({ path: resolve(__dirname, "./.env") });
 
 task("accounts", "Prints the list of accounts", async (args, { ethers }) => {
   const [operator] = await ethers.getSigners();
@@ -13,13 +17,13 @@ const config: HardhatUserConfig = {
   defaultNetwork: "testnet",
   networks: {
     testnet: {
-      url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-      chainId: 97,
+      url: "https://testnet.velas.com/rpc/",
+      chainId: 111,
       accounts: [process.env.OPERATOR_PRIVATE_KEY!],
     },
     mainnet: {
-      url: "https://bsc-dataseed.binance.org/",
-      chainId: 56,
+      url: "https://evmexplorer.velas.com/rpc",
+      chainId: 106,
       accounts: [process.env.OPERATOR_PRIVATE_KEY!],
     },
   },

@@ -1,0 +1,24 @@
+{
+  "Lottery": {
+    "mainnet": "",
+    "testnet": "0x475320d2d9E620D97823570c877ad20ce5CD4A3f"
+  },
+  "Ticket": {
+    "Price": {
+      "mainnet": 5,
+      "testnet": 1
+    }
+  },
+  "Discount": {
+    "mainnet": 2000,
+    "testnet": 2000
+  },
+  "Rewards": {
+    "mainnet": [250, 375, 625, 1250, 2500, 5000],
+    "testnet": [250, 375, 625, 1250, 2500, 5000]
+  },
+  "Treasury": {
+    "mainnet": 2000,
+    "testnet": 2000
+  }
+}

@@ -1,9 +1,10 @@
 import { ethers, network } from "hardhat";
-import lotteryABI from "../abi/PancakeSwapLottery.json";
+import lotteryABI from "../abi/WagyuSwapLottery.json";
 import randomGeneratorABI from "../abi/RandomNumberGenerator.json";
-import config from "../config";
+import config from "../config.json";
 import logger from "../utils/logger";
-
+import axios from "axios";
+import { parseEther } from "@ethersproject/units";
 /**
  * Close lottery.
  */
@@ -37,17 +38,10 @@ const main = async () => {
         contract.randomGenerator(),
       ]);
 
-      // Verify Chainlink VRF Key Hash is set and correct, according to Chainlink documentation, for a given network.
-      const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
-      const keyHash = await randomGeneratorContract.keyHash();
-      if (keyHash !== config.Chainlink.VRF.KeyHash[networkName]) {
-        throw new Error("Invalid keyHash on RandomGenerator contract.");
-      }
-
       // Create, sign and broadcast transaction.
       const tx = await contract.closeLottery(_lotteryId, {
         from: operator.address,
-        gasLimit: 500000,
+        gasLimit: 900000,
         gasPrice: _gasPrice.mul(2),
       });
 
@@ -56,7 +50,16 @@ const main = async () => {
       } signer=${operator.address}`;
       console.log(message);
       logger.info({ message });
-    } catch (error) {
+
+      const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
+
+      const fullFillTx = await randomGeneratorContract.fulfillRandomness({
+        from: operator.address,
+        gasLimit: 900000,
+        gasPrice: _gasPrice.mul(2),
+      });
+      console.log("fullFilled:", ",tx=", fullFillTx?.hash);
+    } catch (error: any) {
       const message = `[${new Date().toISOString()}] network=${networkName} message='${error.message}' signer=${
         operator.address
       }`;

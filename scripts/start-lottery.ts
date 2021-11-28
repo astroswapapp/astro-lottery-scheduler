@@ -1,7 +1,8 @@
+import { BigNumber } from "@ethersproject/bignumber";
 import { parseUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
-import lotteryABI from "../abi/PancakeSwapLottery.json";
-import config from "../config";
+import lotteryABI from "../abi/WagyuSwapLottery.json";
+import config from "../config.json";
 import { getEndTime, getTicketPrice } from "../utils";
 import logger from "../utils/logger";
 
@@ -22,10 +23,7 @@ const main = async () => {
       throw new Error("Missing private key (signer).");
     }
     // Check if the PancakeSwap Lottery / Chainlink Oracle smart contract addresses are set.
-    if (
-      config.Lottery[networkName] === ethers.constants.AddressZero ||
-      config.Chainlink.Oracle[networkName] === ethers.constants.AddressZero
-    ) {
+    if (config.Lottery[networkName] === ethers.constants.AddressZero) {
       throw new Error("Missing smart contract (Lottery / Chainlink Oracle) addresses.");
     }
 
@@ -38,22 +36,19 @@ const main = async () => {
         ethers.provider.getBlockNumber(),
         ethers.provider.getGasPrice(),
       ]);
-
       // Get ticket price (denominated in $Cake), for a given network.
-      const ticketPrice: string = await getTicketPrice(
-        networkName,
-        config.Ticket.Price[networkName],
-        config.Ticket.Precision[networkName]
-      );
+      const ticketPrice: BigNumber = await getTicketPrice(networkName, config.Ticket.Price[networkName]);
+
+      const endTime = getEndTime();
 
       // Create, sign and broadcast transaction.
       const tx = await contract.startLottery(
-        getEndTime(),
-        parseUnits(ticketPrice, "ether"),
+        endTime,
+        ticketPrice,
         config.Discount[networkName],
         config.Rewards[networkName],
         config.Treasury[networkName],
-        { from: operator.address, gasLimit: 500000, gasPrice: _gasPrice.mul(2) }
+        { from: operator.address, gasLimit: 900000, gasPrice: _gasPrice.mul(2) }
       );
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber} message='Started lottery' hash=${
@@ -61,7 +56,7 @@ const main = async () => {
       } signer=${operator.address}`;
       console.log(message);
       logger.info({ message });
-    } catch (error) {
+    } catch (error: any) {
       const message = `[${new Date().toISOString()}] network=${networkName} message='${error.message}' signer=${
         operator.address
       }`;

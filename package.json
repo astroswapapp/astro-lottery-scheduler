@@ -9,6 +9,7 @@
     "execute:close:mainnet": "npx hardhat run --network mainnet scripts/close-lottery.ts",
     "execute:draw:testnet": "npx hardhat run --network testnet scripts/draw-lottery.ts",
     "execute:draw:mainnet": "npx hardhat run --network mainnet scripts/draw-lottery.ts",
+    "start": "node cron.js",
     "format:check": "prettier --check '*/**/*.{js,ts}'",
     "format:write": "prettier --write '*/**/*.{js,ts}'",
     "lint": "eslint '*/**/*.{js,ts}'",
@@ -16,8 +17,13 @@
   },
   "dependencies": {
     "@chainlink/contracts": "^0.2.0",
+    "axios": "^0.24.0",
     "bignumber.js": "^9.0.0",
+    "child_process": "^1.0.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "moment": "^2.29.0",
+    "node-cron": "^3.0.0",
     "winston": "^3.3.0",
     "winston-daily-rotate-file": "^4.5.0"
   },

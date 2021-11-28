@@ -6,7 +6,7 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 
 ### Configuration
 
-- `Lottery` Address of [PancakeSwapLottery](https://github.com/pancakeswap/pancake-contracts/tree/master/projects/lottery) contract.
+- `Lottery` Address of [WagyuSwapLottery](https://github.com/wagyuswapapp/wagyu-lottery) contract.
 - `Ticket` Ticket Price (denominated in USD) and Precision.
 - `Discount` Divisor to compute discount magnitude for bulk ticket purchase.
 - `Rewards` Reward breakdown per bracket (total must be equal to 10,000).
@@ -31,9 +31,9 @@ $ yarn execute:[command]:[network]
 
 #### Network(s)
 
-- `mainnet` ChainId `56` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#mainnetchainid-0x38-56-in-decimal))
+- `mainnet` ChainId `106` 
 
-- `testnet` ChainId `97` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#testnetchainid-0x61-97-in-decimal))
+- `testnet` ChainId `111` 
 
 #### Execution
 
