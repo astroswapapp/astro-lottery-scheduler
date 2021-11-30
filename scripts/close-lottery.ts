@@ -1,6 +1,5 @@
 import { ethers, network } from "hardhat";
 import lotteryABI from "../abi/WagyuSwapLottery.json";
-import randomGeneratorABI from "../abi/RandomNumberGenerator.json";
 import config from "../config.json";
 import logger from "../utils/logger";
 import axios from "axios";
@@ -31,11 +30,10 @@ const main = async () => {
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
-      const [_blockNumber, _gasPrice, _lotteryId, _randomGenerator] = await Promise.all([
+      const [_blockNumber, _gasPrice, _lotteryId] = await Promise.all([
         ethers.provider.getBlockNumber(),
         ethers.provider.getGasPrice(),
         contract.currentLotteryId(),
-        contract.randomGenerator(),
       ]);
 
       // Create, sign and broadcast transaction.
@@ -50,15 +48,6 @@ const main = async () => {
       } signer=${operator.address}`;
       console.log(message);
       logger.info({ message });
-
-      const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
-
-      const fullFillTx = await randomGeneratorContract.fulfillRandomness({
-        from: operator.address,
-        gasLimit: 900000,
-        gasPrice: _gasPrice.mul(2),
-      });
-      console.log("fullFilled:", ",tx=", fullFillTx?.hash);
     } catch (error: any) {
       const message = `[${new Date().toISOString()}] network=${networkName} message='${error.message}' signer=${
         operator.address

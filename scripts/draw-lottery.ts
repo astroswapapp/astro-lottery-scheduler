@@ -2,6 +2,7 @@ import { ethers, network } from "hardhat";
 import lotteryABI from "../abi/WagyuSwapLottery.json";
 import config from "../config.json";
 import logger from "../utils/logger";
+import randomGeneratorABI from "../abi/RandomNumberGenerator.json";
 
 /**
  * Draw lottery.
@@ -29,11 +30,21 @@ const main = async () => {
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
-      const [_blockNumber, _gasPrice, _lotteryId] = await Promise.all([
+      const [_blockNumber, _gasPrice, _lotteryId, _randomGenerator] = await Promise.all([
         ethers.provider.getBlockNumber(),
         ethers.provider.getGasPrice(),
         contract.currentLotteryId(),
+        contract.randomGenerator(),
       ]);
+
+      const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
+
+      const fullFillTx = await randomGeneratorContract.fulfillRandomness({
+        from: operator.address,
+        gasLimit: 900000,
+        gasPrice: _gasPrice.mul(2),
+      });
+      console.log("fullFilled:", ",tx=", fullFillTx?.hash);
 
       // Create, sign and broadcast transaction.
       const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId, true, {
