@@ -66,10 +66,9 @@ const startService = async () => {
     console.log("==cron==", Date.now());
     // run every 15 mins
 
-    handleLottery("mainnet");
+    // handleLottery("mainnet");
     handleLottery("testnet");
   });
-  handleLottery("testnet");
 
   app.listen(3000, () => {
     console.log("====started===");
