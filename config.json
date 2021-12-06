@@ -1,6 +1,6 @@
 {
   "Lottery": {
-    "mainnet": "",
+    "mainnet": "0x52AE522D6Bde0a04f9D28c71797d5f7214176592",
     "testnet": "0x62871cf7b1d356f965734d7EBDEBADB482d7ee11"
   },
   "Ticket": {
@@ -18,7 +18,7 @@
     "testnet": [250, 375, 625, 1250, 2500, 5000]
   },
   "Treasury": {
-    "mainnet": 1000,
-    "testnet": 1000
+    "mainnet": 2000,
+    "testnet": 2000
   }
 }

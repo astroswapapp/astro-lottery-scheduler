@@ -34,7 +34,6 @@ const handleLottery = async (network) => {
 
   try {
     const currentRoundId = await lotteryContract.viewCurrentLotteryId();
-
     if (currentRoundId.isZero()) {
       // startLottery
       execSync(`yarn execute:start:${network}`);
@@ -70,6 +69,7 @@ const startService = async () => {
     handleLottery("mainnet");
     handleLottery("testnet");
   });
+  handleLottery("testnet");
 
   app.listen(3000, () => {
     console.log("====started===");
