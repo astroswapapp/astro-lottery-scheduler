@@ -1,7 +1,7 @@
 {
   "Lottery": {
-    "mainnet": "0x52AE522D6Bde0a04f9D28c71797d5f7214176592",
-    "testnet": "0x62871cf7b1d356f965734d7EBDEBADB482d7ee11"
+    "mainnet": "0x1511f59BbA5bc5F45C7FFC4aa39813175650d070",
+    "testnet": "0xe83377625149873b22cEa00B01c0019da1d92c0d"
   },
   "Ticket": {
     "Price": {
