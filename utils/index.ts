@@ -9,11 +9,11 @@ import moment from "moment";
  */
 export const getTicketPrice = async (networkName: "testnet" | "mainnet", usd: number): Promise<BigNumber> => {
   const priceResponse = (
-    await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=wagyuswap&vs_currencies=usd")
+    await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=astroswap&vs_currencies=usd")
   ).data;
-  const wagPrice = parseEther(String(priceResponse.wagyuswap.usd));
+  const astroPrice = parseEther(String(priceResponse.astroswap.usd));
 
-  return parseEther(usd.toString()).mul(parseEther("1")).div(wagPrice);
+  return parseEther(usd.toString()).mul(parseEther("1")).div(astroPrice);
 };
 
 /**

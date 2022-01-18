@@ -1,5 +1,5 @@
 import { ethers, network } from "hardhat";
-import lotteryABI from "../abi/WagyuSwapLottery.json";
+import lotteryABI from "../abi/AstroSwapLottery.json";
 import config from "../config.json";
 import logger from "../utils/logger";
 import randomGeneratorABI from "../abi/RandomNumberGenerator.json";

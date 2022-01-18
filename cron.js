@@ -6,7 +6,7 @@ const { providers, Contract, BigNumber } = require("ethers");
 const { execSync } = require("child_process");
 
 const LotteryConfig = require("./config.json");
-const LotteryAbi = require("./abi/WagyuSwapLottery.json");
+const LotteryAbi = require("./abi/AstroSwapLottery.json");
 
 const networks = {
   testnet: {
@@ -66,7 +66,7 @@ const startService = async () => {
     console.log("==cron==", Date.now());
     // run every 15 mins
 
-    handleLottery("mainnet");
+    // handleLottery("mainnet");
     handleLottery("testnet");
   });
 

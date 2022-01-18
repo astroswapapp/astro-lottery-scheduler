@@ -1,7 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { parseUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
-import lotteryABI from "../abi/WagyuSwapLottery.json";
+import lotteryABI from "../abi/AstroSwapLottery.json";
 import config from "../config.json";
 import { getEndTime, getTicketPrice } from "../utils";
 import logger from "../utils/logger";

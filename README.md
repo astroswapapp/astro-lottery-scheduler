@@ -6,7 +6,7 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 
 ### Configuration
 
-- `Lottery` Address of [WagyuSwapLottery](https://github.com/wagyuswapapp/wagyu-lottery) contract.
+- `Lottery` Address of [AstroSwapLottery](https://github.com/astroswapapp/astro-lottery) contract.
 - `Ticket` Ticket Price (denominated in USD) and Precision.
 - `Discount` Divisor to compute discount magnitude for bulk ticket purchase.
 - `Rewards` Reward breakdown per bracket (total must be equal to 10,000).
@@ -31,9 +31,9 @@ $ yarn execute:[command]:[network]
 
 #### Network(s)
 
-- `mainnet` ChainId `106` 
+- `mainnet` ChainId `106`
 
-- `testnet` ChainId `111` 
+- `testnet` ChainId `111`
 
 #### Execution
 
