@@ -2,7 +2,7 @@
 
 const express = require("express");
 const cron = require("node-cron");
-const { providers, Contract, BigNumber } = require("ethers");
+const { providers, Contract } = require("ethers");
 const { execSync } = require("child_process");
 
 const LotteryConfig = require("./config.json");
