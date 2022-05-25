@@ -21,16 +21,7 @@ export const getTicketPrice = async (networkName: "testnet" | "mainnet", usd: nu
  * Used by 'start-lottery' Hardhat script, only.
  */
 export const getEndTime = (): number => {
-  // 8pm utc every Sunday
-  const date = new Date();
+  // every 4 days
 
-  const dayDiff = 7 - date.getDay();
-  date.setDate(date.getDate() + dayDiff);
-  date.setHours(20);
-  date.setMinutes(0);
-  date.setSeconds(0);
-  date.setMilliseconds(0);
-  date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-
-  return Math.floor(date.getTime() / 1000);
+  return Date.now() + 4 * 24 * 60 * 60;
 };
