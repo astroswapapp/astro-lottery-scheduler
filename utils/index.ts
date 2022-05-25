@@ -23,5 +23,5 @@ export const getTicketPrice = async (networkName: "testnet" | "mainnet", usd: nu
 export const getEndTime = (): number => {
   // every 4 days
 
-  return Date.now() + 4 * 24 * 60 * 60;
+  return Math.floor(Date.now() / 1000) + 4 * 24 * 60 * 60;
 };
